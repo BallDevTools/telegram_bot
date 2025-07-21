@@ -1,0 +1,51 @@
+// vercel.json
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/bot.js",
+      "use": "@vercel/node",
+      "config": {
+        "maxDuration": 30
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/bot",
+      "dest": "/api/bot.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/bot.js"
+    }
+  ],
+  "env": {
+    "TELEGRAM_BOT_TOKEN": "@telegram_bot_token",
+    "ALPHA_VANTAGE_KEY": "@alpha_vantage_key", 
+    "TWELVE_DATA_KEY": "@twelve_data_key"
+  }
+}
+
+---
+
+// package.json (แก้ไข)
+{
+  "name": "gold-trade-bot-vercel",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "api/bot.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'No build step required'",
+    "start": "node api/bot.js"
+  },
+  "dependencies": {
+    "node-telegram-bot-api": "^0.61.0",
+    "axios": "^1.6.0"
+  },
+  "engines": {
+    "node": ">=18.x"
+  }
+}
+
